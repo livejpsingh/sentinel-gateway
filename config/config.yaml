@@ -1,0 +1,37 @@
+server:
+  address: ":8080"
+  read_timeout: 10s
+  read_header_timeout: 5s
+  write_timeout: 10s
+  idle_timeout: 60s
+  shutdown_timeout: 15s
+  max_header_bytes: 1048576
+  max_body_bytes: 1048576
+
+auth:
+  secret: "local-development-secret-change-this-before-production"
+  issuer: "sentinel-local"
+  audience: "sentinel-api"
+
+rate_limit:
+  requests_per_second: 50000
+  burst: 20000
+  max_clients: 50000
+  idle_ttl: 10m
+  cleanup_interval: 1m
+
+circuit_breaker:
+  failure_threshold: 5
+  open_timeout: 10s
+
+routes:
+  users:
+    prefix: "/api/users/"
+    upstream: "http://localhost:9001"
+    timeout: 3s
+    max_connections_per_host: 1024
+  payments:
+    prefix: "/api/payments/"
+    upstream: "http://localhost:9002"
+    timeout: 5s
+    max_connections_per_host: 1024

@@ -1,0 +1,23 @@
+# Go build and test output
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+coverage*.txt
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local load-test output
+k6-summary.json

@@ -1,0 +1,50 @@
+services:
+  gateway:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        APP: ./cmd/sentinel
+    environment:
+      SENTINEL_ADDR: ":8080"
+      SENTINEL_USERS_URL: "http://users:9001"
+      SENTINEL_PAYMENTS_URL: "http://payments:9002"
+      SENTINEL_JWT_SECRET: "${SENTINEL_JWT_SECRET:-compose-development-secret-change-this-before-production}"
+      SENTINEL_RATE_RPS: "${SENTINEL_RATE_RPS:-50000}"
+      SENTINEL_RATE_BURST: "${SENTINEL_RATE_BURST:-100000}"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - users
+      - payments
+
+  users:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        APP: ./mocks/users
+    entrypoint: ["/app/sentinel"]
+    environment:
+      USERS_ADDR: ":9001"
+
+  payments:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      args:
+        APP: ./mocks/payments
+    entrypoint: ["/app/sentinel"]
+    environment:
+      PAYMENTS_ADDR: ":9002"
+
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    volumes:
+      - ../prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    depends_on:
+      - gateway

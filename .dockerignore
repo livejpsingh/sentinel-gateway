@@ -1,0 +1,13 @@
+.git
+.github
+.vscode
+.idea
+.env
+.env.*
+!.env.example
+*.exe
+*.test
+*.out
+coverage*.txt
+k6-summary.json
+README.md
