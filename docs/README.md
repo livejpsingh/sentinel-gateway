@@ -10,7 +10,7 @@ quickstart. These documents describe the implementation and operating model:
 | [Configuration](configuration.md) | YAML settings, environment overrides, and defaults |
 | [Operations runbook](operations.md) | Local/Compose operation, health checks, incident drills, and shutdown |
 | [Observability](observability.md) | Metrics, labels, PromQL examples, logs, and dashboards |
-| [Security](security.md) | Threat model, controls, trust boundaries, and production hardening |
+| [Security](security.md) and [reporting policy](../SECURITY.md) | Threat model, controls, trust boundaries, and vulnerability disclosure |
 | [Development](development.md) | Tooling, code map, test commands, and contribution workflow |
 | [Performance testing](performance.md) | k6 scenario, measurement method, and benchmark reporting |
 | [Release and CI/CD](release.md) | GitHub Actions validation, GHCR publishing, and deployment boundary |
